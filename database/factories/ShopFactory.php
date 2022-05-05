@@ -17,10 +17,12 @@ class ShopFactory extends Factory
      */
     public function definition()
     {
-        $user = User::all()->random();
+
+        $user = User::inRandomOrder()->first();
+
         return [
             'name' => $this->faker->company,
-            'caisse' => $this->faker->randomFloat(2, 0, 100),
+            'caisse' => $this->faker->randomFloat(2, 0, 1000),
             'user_id' => $user->id,
         ];
     }

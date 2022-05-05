@@ -16,12 +16,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // $products = Product::all();
-        // return response()->json([
-        //     'products' => $products,
-        //     'status' => 'success',
-        //     'message' => 'Products retrieved successfully'
-        // ], 200);
+        $products = Product::all();
+        return response()->json([
+            'products' => $products,
+            'status' => 'success',
+            'message' => 'Products retrieved successfully'
+        ], 200);
     }
 
     /**
@@ -42,24 +42,24 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        // $validated = $request->validated(
-        //     [
-        //         'name' => 'required|string|max:255',
-        //         'description' => 'required|string|max:255',
-        //         'price' => 'required|numeric',
-        //         'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        //     ]);
-        // $product = new Product();
-        // $product->name = $request->name;
-        // $product->description = $request->description;
-        // $product->price = $request->price;
-        // $product->image = Storage::disk('public')->put('', $request->image);
-        // $product->save();
-        // return response()->json([
-        //     'product' => $product,
-        //     'status' => 'success',
-        //     'message' => 'Product created successfully'
-        // ], 200);
+        $validated = $request->validated(
+            [
+                'name' => 'required|string|max:255',
+                'description' => 'required|string|max:255',
+                'price' => 'required|numeric',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+        $product = new Product();
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->image = Storage::disk('public')->put('', $request->image);
+        $product->save();
+        return response()->json([
+            'product' => $product,
+            'status' => 'success',
+            'message' => 'Product created successfully'
+        ], 200);
     }
 
     /**
@@ -70,7 +70,13 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+
+        $showProduct = Product::find($product->id);
+        return response()->json([
+            'product' => $showProduct,
+            'status' => 'success',
+            'message' => 'Product retrieved successfully'
+        ], 200);
     }
 
     /**
@@ -93,7 +99,24 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $validated = $request->validated(
+            [
+                'name' => 'required|string|max:255',
+                'description' => 'required|string|max:255',
+                'price' => 'required|numeric',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+        $product = Product::find($product->id);
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->image = Storage::disk('public')->put('', $request->image);
+        $product->save();
+        return response()->json([
+            'product' => $product,
+            'status' => 'success',
+            'message' => 'Product updated successfully'
+        ], 200);
     }
 
     /**
@@ -104,6 +127,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product = Product::find($product->id);
+        $product->delete();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Product deleted successfully'
+        ], 200);
     }
 }

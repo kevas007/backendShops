@@ -19,8 +19,8 @@ class ShopsProductFactory extends Factory
      */
     public function definition()
     {
-        $shop= Shop::all()->random();
-        $product= Product::all()->random();
+        $shop= Shop::inRandomOrder()->first();
+        $product= Product::inRandomOrder()->first();
         return [
             'shop_id' => $shop->id,
             'product_id' => $product->id,

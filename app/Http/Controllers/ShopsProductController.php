@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Shops_Product;
 use App\Http\Requests\StoreShops_ProductRequest;
 use App\Http\Requests\UpdateShops_ProductRequest;
+use App\Models\ShopsProduct;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ShopsProductController extends Controller
 {
@@ -15,7 +18,19 @@ class ShopsProductController extends Controller
      */
     public function index()
     {
-        //
+
+        $shop=User::all()->first();
+        $shops_products = ShopsProduct::where('shop_id', $shop->id)
+        ->join('products', 'products.id', '=', 'shops_products.product_id')
+        ->join('shops', 'shops.id', '=', 'shops_products.shop_id')
+     
+        ->get();
+        dd($shops_products);
+        return response()->json([
+            'shops_products' => $shops_products,
+            'status' => 'success',
+            'message' => 'Shops_Products retrieved successfully'
+        ], 200);
     }
 
     /**
@@ -36,7 +51,7 @@ class ShopsProductController extends Controller
      */
     public function store(StoreShops_ProductRequest $request)
     {
-        
+
     }
 
     /**

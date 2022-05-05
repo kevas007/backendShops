@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\ShopsProductController;
+use App\Models\Shop;
+use App\Models\ShopsProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -36,5 +39,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         ];
     });
 
-
 });
+
+
+    Route::get('shops', [ShopsProductController::class, 'index']);

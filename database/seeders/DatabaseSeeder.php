@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
     {
         Avatar::factory(2)->create();
         User::factory(2)->create();
-        Shop::factory(10)->create();
+        Shop::factory(2)->create();
         Product::factory(10)->create();
         ShopsProduct::factory(2)->create();
     }

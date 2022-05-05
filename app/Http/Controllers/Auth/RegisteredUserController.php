@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 use App\Traits\ApiResponser;
 use App\Http\Controllers\Controller;
 use App\Models\Avatar;
+use App\Models\Shop;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -70,6 +71,11 @@ class RegisteredUserController extends Controller
             'avatar_id' => $avatar->id,
             'password' => Hash::make($request->password),
             'money' => $request->money,
+        ]);
+        $shops= Shop::create([
+            'user_id' => $user->id,
+            'name' =>'La boutique  de' . $user->name,
+            'caisse' => random_int(500, 1000),
         ]);
 
         event(new Registered($user));
