@@ -36,7 +36,7 @@ class ShopsProductController extends Controller
      */
     public function store(StoreShops_ProductRequest $request)
     {
-        //
+        
     }
 
     /**
